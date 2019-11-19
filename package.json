@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve -o --port=4211",
     "build": "ng build --prod --baseHref=/dist/ab-tasks/",
+    "deploy": "ng deploy --baseHref=/ab-tasks/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
