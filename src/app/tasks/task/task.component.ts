@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ab-task',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  taskDescription: string;
+  constructor(activatedRoute: ActivatedRoute) {
+    this.taskDescription = activatedRoute.snapshot.params.id;
   }
 
+  ngOnInit() {}
 }
