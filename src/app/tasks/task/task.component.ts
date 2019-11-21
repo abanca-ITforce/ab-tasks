@@ -7,10 +7,18 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-  taskDescription: string;
+  task = {
+    description: '',
+    priority: Math.round(Math.random() * 2),
+    dueDate: new Date(),
+    state: Math.round(Math.random() * 2)
+  };
   constructor(activatedRoute: ActivatedRoute) {
-    this.taskDescription = activatedRoute.snapshot.params.id;
+    this.task.description = activatedRoute.snapshot.params.id;
   }
-
+  // default, high, tomorrow
+  priorityColors = ['primary', 'accent', 'warn'];
+  // pending, completed, inProgress ,discarded
+  stateColors = ['primary', '', 'accent', 'warn'];
   ngOnInit() {}
 }
