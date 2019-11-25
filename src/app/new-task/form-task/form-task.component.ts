@@ -8,7 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class FormTaskComponent {
   taskForm = this.fb.group({
-    description: [null, [Validators.required]],
+    description: [null, [Validators.required, Validators.minLength(3)]],
     dueDate: [null, [Validators.required]],
     state: [null, []],
     priority: ['default', Validators.required]
