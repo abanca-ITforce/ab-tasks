@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { TasksService } from '../../tasks.service';
 
 @Component({
   selector: 'ab-form-task',
@@ -14,15 +15,10 @@ export class FormTaskComponent {
     priority: ['default', Validators.required]
   });
 
-  states = [
-    { id: 0, name: 'Pending', color: 'primary' },
-    { id: 1, name: 'Complete', color: '' },
-    { id: 2, name: 'In Progress', color: 'primary' },
-    { id: 3, name: 'Cancel', color: 'warn' }
-  ];
-  constructor(private fb: FormBuilder) {}
+  states = this.tasksService.getStates();
+  constructor(private fb: FormBuilder, private tasksService: TasksService) {}
 
   onSubmit() {
-    alert(JSON.stringify(this.taskForm.value));
+    this.tasksService.postTask(this.taskForm.value);
   }
 }
