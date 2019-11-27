@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'ab-new-task',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-task.component.css']
 })
 export class NewTaskComponent implements OnInit {
+  states = this.tasksService.getStates();
+  constructor(private tasksService: TasksService) {}
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit() { }
+  onTaskPost(task) {
+    this.tasksService.postTask( task );
   }
-
 }

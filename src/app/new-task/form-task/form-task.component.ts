@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { TasksService } from '../../tasks.service';
 
 @Component({
   selector: 'ab-form-task',
@@ -15,10 +14,11 @@ export class FormTaskComponent {
     priority: ['default', Validators.required]
   });
 
-  states = this.tasksService.getStates();
-  constructor(private fb: FormBuilder, private tasksService: TasksService) {}
+  @Input() states;
+  constructor(private fb: FormBuilder) {}
+  @Output() post = new EventEmitter<any>();
 
   onSubmit() {
-    this.tasksService.postTask(this.taskForm.value);
+    this.post.emit(this.taskForm.value);
   }
 }
