@@ -34,6 +34,12 @@ export class TasksService {
     return this.http.get<any[]>(this.url).pipe(map(data => (data ? data : [])));
   }
 
+  getTaskById$(id) {
+    return this.http
+      .get<any>(this.url + '/' + id)
+      .pipe(map(data => (data ? data : {})));
+  }
+
   postTask(task) {
     // this.taskList.push(task);
     // localStorage.setItem('taskList', JSON.stringify(this.taskList));
@@ -43,5 +49,9 @@ export class TasksService {
           .get<any[]>(this.url)
           .subscribe(data => (this.taskList = data ? data : []))
     });
+  }
+
+  putTask$(task) {
+    return this.http.put(this.url + '/' + task._id, task);
   }
 }

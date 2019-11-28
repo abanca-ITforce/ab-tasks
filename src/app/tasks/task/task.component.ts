@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TasksService } from '../../tasks.service';
 
 @Component({
   selector: 'ab-task',
@@ -7,14 +8,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-  task = {
-    description: '',
-    priority: Math.round(Math.random() * 2),
-    dueDate: new Date(2019, 11, 5),
-    state: 0
-  };
-  constructor(activatedRoute: ActivatedRoute) {
-    this.task.description = activatedRoute.snapshot.params.id;
+  task$;
+  constructor(
+    activatedRoute: ActivatedRoute,
+    private tasksService: TasksService
+  ) {
+    const taskId = activatedRoute.snapshot.params.id;
+    this.task$ = tasksService.getTaskById$(taskId);
   }
   // default, high, tomorrow
   priorityColors = ['primary', 'accent', 'warn'];
@@ -26,4 +26,9 @@ export class TaskComponent implements OnInit {
     { id: 3, name: 'Cancel', color: 'warn' }
   ];
   ngOnInit() {}
+
+  changeState(state, task) {
+    task.state = state;
+    this.tasksService.putTask$(task).subscribe();
+  }
 }
